@@ -1,15 +1,23 @@
 import sys
 from random import randint
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt5.QtGui import QPainter, QColor
 
 
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.initUI()
+
+    def initUI(self):
+        self.setGeometry(300, 300, 500, 480)
+
+        self.btn = QPushButton('KNOPKA', self)
+        self.btn.move(170, 10)
+        self.btn.resize(150, 70)
         self.btn.clicked.connect(self.click)
+
         self.do_paint = False
 
     def paintEvent(self, event):
@@ -24,7 +32,7 @@ class MyWidget(QMainWindow):
         self.repaint()
 
     def draw_flag(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        qp.setBrush(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
         a = randint(30, 250)
         qp.drawEllipse(randint(0, self.width() - a), randint(0, self.height() - a), a, a)
 
